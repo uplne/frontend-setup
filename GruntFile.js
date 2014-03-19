@@ -1,6 +1,6 @@
 /**
- * Vivamusica GruntFile
- * @version 0.0.1
+ * GruntFile sample file
+ * @version 0.0.2
  */
 module.exports = function(grunt) {
     grunt.initConfig({
@@ -202,7 +202,7 @@ module.exports = function(grunt) {
               env: {
                 PORT: '1985'
               },
-              // omit this property if you aren't serving HTML files and 
+              // omit this property if you aren't serving HTML files and
               // don't want to open a browser tab on start
               callback: function (nodemon) {
                 nodemon.on('log', function (event) {
