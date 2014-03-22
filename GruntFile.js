@@ -1,8 +1,12 @@
 /**
- * GruntFile sample file
- * @version 0.0.2
+ * GruntFile
+ * @version 0.0.3
  */
 module.exports = function(grunt) {
+
+    // load all grunt tasks
+    require('matchdep').filterDev(['grunt-*', '!grunt-cli']).forEach(grunt.loadNpmTasks);
+
     grunt.initConfig({
 
         /**
@@ -75,12 +79,16 @@ module.exports = function(grunt) {
           },
         },
 
-        // Define Karma test runner configuration
-        karma: {
-            // Run unit test automation
+        // Server side unit tests
+        mochacli: {
+            options: {
+                ui: "tdd",
+                reporter: "spec",
+                timeout: "15000"
+            },
+
             unit: {
-                configFile: 'karma.conf.js',
-                autoRun: true
+                src: ["static/js/tests/unit/**/*.js"]
             }
         },
 
@@ -195,34 +203,34 @@ module.exports = function(grunt) {
         * @github.com/ChrisWren/grunt-nodemon
         */
         nodemon: {
-          dev: {
-            script: 'index.js',
-            options: {
-              nodeArgs: ['--debug'],
-              env: {
-                PORT: '1985'
-              },
-              // omit this property if you aren't serving HTML files and
-              // don't want to open a browser tab on start
-              callback: function (nodemon) {
-                nodemon.on('log', function (event) {
-                  console.log(event.colour);
-                });
+            dev: {
+                script: 'index.js',
+                options: {
+                    nodeArgs: ['--debug'],
+                    env: {
+                        PORT: '1985'
+                    },
+                    // omit this property if you aren't serving HTML files and
+                    // don't want to open a browser tab on start
+                    callback: function (nodemon) {
+                        nodemon.on('log', function (event) {
+                            console.log(event.colour);
+                        });
 
-                // refreshes browser when server reboots
-                nodemon.on('restart', function () {
-                  // Delay before server listens on port
-                  setTimeout(function() {
-                    require('fs').writeFileSync('.rebooted', 'rebooted');
-                  }, 1000);
-                });
+                        // refreshes browser when server reboots
+                        nodemon.on('restart', function () {
+                            // Delay before server listens on port
+                            setTimeout(function() {
+                                require('fs').writeFileSync('.rebooted', 'rebooted');
+                            }, 1000);
+                        });
 
-                /*setTimeout(function() {
-                    require('grunt-open')('http://localhost:1955');
-                }, 1000);*/
-              }
+                        /*setTimeout(function() {
+                            require('grunt-open')('http://localhost:1955');
+                        }, 1000);*/
+                    }
+                }
             }
-          }
         },
 
         open: {
@@ -235,7 +243,7 @@ module.exports = function(grunt) {
         // In order to run the Karma watcher and the SASS watchers concurrently, we need to run this task
         concurrent: {
             dev: {
-                tasks: ['watch', 'karma:unit', 'nodemon'],
+                tasks: ['watch', 'nodemon'],
                 options: {
                     logConcurrentOutput: true
                 }
@@ -269,21 +277,9 @@ module.exports = function(grunt) {
         }
     });
 
-    /**
-     * Load all NPM tasks
-     */
-    grunt.loadNpmTasks('grunt-karma');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-sass');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-imagemin');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-concurrent');
-    grunt.loadNpmTasks('grunt-notify');
-    grunt.loadNpmTasks('grunt-nodemon');
-    grunt.loadNpmTasks('grunt-open');
-    grunt.loadNpmTasks('grunt-autoprefixer');
+    grunt.registerTask('test-unit', 'Run unit tests - mocha', [
+        'mochacli:unit'
+    ]);
 
     grunt.registerTask('dev', [
         'concurrent:dev',

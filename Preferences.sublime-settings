@@ -1,0 +1,47 @@
+/**
+ * Sublime settings
+ *
+ * Recommended: http://wesbos.github.io/Sublime-Text-Power-User-Talk
+ *
+ * Packages:
+ *
+ * DocBlockr    - https://sublime.wbond.net/packages/DocBlockr
+ * Emmet        - http://docs.emmet.io/
+ * GitGutter    - https://github.com/jisaacks/GitGutter
+ * Sass         - https://sublime.wbond.net/packages/Sass
+ * Gutter Color - https://sublime.wbond.net/packages/Gutter%20Color
+ * JSHint       - http://www.jshint.com/install/
+ * Dayle Rees Color Themes - https://github.com/daylerees/colour-schemes
+ */
+
+{
+	"auto_complete_commit_on_tab": true,
+	"bold_folder_labels": true,
+	"color_scheme": "Packages/Dayle Rees Color Schemes/legacy/Mud.tmTheme",
+	"draw_white_space": "all",
+	"ensure_newline_at_eof_on_save": true,
+	"font_size": 12,
+	"highlight_line": true,
+	"highlight_modified_tabs": true,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"indent_to_bracket": true,
+	"line_padding_bottom": 1,
+	"line_padding_top": 1,
+	"match_brackets": true,
+	"match_brackets_angle": true,
+	"match_brackets_braces": true,
+	"match_brackets_content": true,
+	"match_brackets_square": true,
+	"rulers":
+	[
+		80
+	],
+	"tab_size": 4,
+	"translate_tabs_to_spaces": true,
+	"trim_automatic_white_space": true,
+	"trim_trailing_white_space_on_save": true,
+	"word_wrap": true
+}
